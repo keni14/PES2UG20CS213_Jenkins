@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'g++ "PES2UG20CS213_Jenkins/hello.cpp" -o "PES2UG20CS213_Jenkins/hello"
+                echo 'Build Successful'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './PES2UG20CS213'
+                echo 'Test Successful'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh'PES2UG20CS213_Jenkins/hello'
+          echo 'Deployment Successful'
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                if (currentBuild.result == "FAILURE") {
+                    echo "pipeline failed"
+                }
+            }
+        }
+    }
+}
