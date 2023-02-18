@@ -12,6 +12,11 @@ pipeline {
                 sh './PES2UG20CS213'
             }
         }
+         stage('Deploy') {
+            steps {
+                sh 'deploy'
+            }
+        }
     }
     post {
         always {
